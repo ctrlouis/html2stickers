@@ -1,0 +1,19 @@
+version: "3.8"
+
+services:
+
+    api:
+        image: node:18
+        container_name: "html-sticker"
+        user: "node"
+        working_dir: /home/node/app
+        environment:
+            - TZ=Europe/Amsterdam
+            - NODE_ENV=dev
+            - ALLOW_ORIGIN=http://localhost
+        ports:
+            - 3000:3000
+        volumes:
+            - ./src:/home/node/app
+            - ./stickers:/stickers
+        command: npm run dev
