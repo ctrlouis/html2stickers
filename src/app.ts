@@ -2,15 +2,14 @@ import cors from 'cors';
 import express from 'express';
 import morgan from 'morgan';
 import path from 'path';
+import { errorHandler } from './middlewares/errorHandler';
 
-import indexRouter from './routes/index';
+import stickerRouter from './routes/stickerRouter';
 
 const app = express();
-const port = process.env.PORT || 3000;
 
 app.use(cors());
 app.use(express.json());
-// app.use(express.urlencoded());
 app.use(morgan('dev'));
 
 // view engine setup
@@ -18,12 +17,15 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
+app.get('/', function(req, res, next) {
+    res.send("Welcome to html2stickers! 📄");
+});
 
-// app.get('/', (req, res) => {
-//     res.render('index');
-// });
+app.use('/api/stickers', stickerRouter);
 
+app.use(errorHandler);
+
+const port = process.env.PORT || 3000;
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`);
 });
