@@ -1,22 +1,24 @@
 import { Request, Response, NextFunction } from 'express';
+import createHttpError from 'http-errors';
 import Sticker from '../services/stickerService';
 
 const previewSticker = async (req: Request, res: Response, next: NextFunction ) => {
     try {
         const stickerName = req.params.stickerName;
-        const height = req.query.height;
-        const width = req.query.width;
+        const height = Number(req.query.height);
+        const width = Number(req.query.width);
+
+        verifiedParams(stickerName, height, width);
 
         const htmlFilePath = `${stickerName}`;
         const data = {
-            title: stickerName,
-            height: height,
-            width: width,
+            stickerName: stickerName,
+            ...req.query,
         }
 
         res.render(htmlFilePath, data);
     } catch (err: any) {
-        next(err);
+        next(err.message);
     }
 }
 
@@ -31,6 +33,14 @@ const generateSticker = async (req: Request, res: Response, next: NextFunction )
     } catch (err: any) {
         next(err);
     }
+}
+
+const verifiedParams = (stickerName: String | undefined, height: number, width: number) => {
+    if (typeof stickerName !== 'string') throw createHttpError(400, `Param stickerName should be a string`);
+    console.log(width);
+    console.log(Number.isNaN(width));
+    if (Number.isNaN(height)) throw createHttpError(400, `Param height should be a number`);
+    if (Number.isNaN(width)) throw createHttpError(400, `Param width should be a number`);
 }
 
 export {
