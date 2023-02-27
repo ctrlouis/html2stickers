@@ -25,10 +25,16 @@ const previewSticker = async (req: Request, res: Response, next: NextFunction ) 
 const generateSticker = async (req: Request, res: Response, next: NextFunction ) => {
     try {
         const stickerName = req.params.stickerName;
-        const height = Number(req.query.height);
-        const width = Number(req.query.width);
+        const height = Number(req.body.height);
+        const width = Number(req.body.width);
+
+        verifiedParams(stickerName, height, width);
+
+        let data = req.body; // turn req.query into object/array
+        delete data['height'];
+        delete data['width'];
         
-        Sticker.generate(stickerName, height, width);
+        Sticker.generate(stickerName, height, width, data);
         res.send();
     } catch (err: any) {
         next(err);
