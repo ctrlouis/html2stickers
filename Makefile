@@ -21,6 +21,3 @@ npm_update:
 
 build_docker_image:
 	docker buildx build -f ./docker/Dockerfile-node -t ${docker_image_name} .
-
-build_docker_image_alpine:
-	docker buildx build -f ./docker/Dockerfile-node-alpine -t ${docker_image_name} .
