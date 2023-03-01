@@ -20,4 +20,4 @@ npm_update:
 	docker run -it --rm -v ${PWD}/app:/app -w /app node:$(node_version) npm update -D
 
 build_docker_image:
-	docker buildx build -f ./docker/Dockerfile-node -t ${docker_image_name} .
+	docker buildx build -f ./docker/Dockerfile -t ${docker_image_name} .
