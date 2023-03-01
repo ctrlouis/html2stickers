@@ -10,7 +10,7 @@ env:
 
 jobs:
 
-  deploy-mailbee:
+  deploy-html2stickers:
     runs-on: ubuntu-latest
 
     steps:
@@ -47,7 +47,7 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
 
-  deploy-mailbee-alpine:
+  deploy-html2stickers-alpine:
     runs-on: ubuntu-latest
 
     steps:
