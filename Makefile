@@ -3,6 +3,7 @@ bold := \e[1m
 grey := \e[2m
 
 node_version := 18
+docker_image_name := html2stickers
 
 all: list
 
@@ -19,7 +20,7 @@ npm_update:
 	docker run -it --rm -v ${PWD}/app:/app -w /app node:$(node_version) npm update -D
 
 build_docker_image:
-	docker buildx build -f ./docker/Dockerfile-node -t html2sticker .
+	docker buildx build -f ./docker/Dockerfile-node -t ${docker_image_name} .
 
 build_docker_image_alpine:
-	docker buildx build -f ./docker/Dockerfile-node-alpine -t html2sticker .
+	docker buildx build -f ./docker/Dockerfile-node-alpine -t ${docker_image_name} .

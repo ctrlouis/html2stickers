@@ -28,7 +28,7 @@ export default class Sticker {
             const element = await page.$(selector);
         
             if (element) {
-                await element.screenshot({path: `/stickers/${stickerName}.png`});
+                await element.screenshot({path: `dist/public/stickers/${stickerName}.png`});
                 console.log("Screenshot taken !");
             } else {
                 throw (`Element ${element} not found.`);

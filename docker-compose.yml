@@ -3,16 +3,14 @@ version: "3.8"
 services:
 
     api:
-        image: ctrlouis/html-2-sticker
-        container_name: "html-sticker"
+        image: ctrlouis/html2stickers
+        container_name: "html2stickers"
         user: "node"
-        working_dir: /home/node/app
         environment:
             - TZ=Europe/Amsterdam
-            - NODE_ENV=dev
+            - NODE_ENV=prod
             - ALLOW_ORIGIN=http://localhost
         ports:
             - 3000:3000
         volumes:
-            - ./src:/home/node/app
-            - ./stickers:/stickers
+            - ./public:/html2stickers/dist/public

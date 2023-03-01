@@ -1,10 +1,18 @@
 import cors from 'cors';
 import express from 'express';
+import fs from 'fs';
 import morgan from 'morgan';
 import path from 'path';
 import { errorHandler } from './middlewares/errorHandler';
 
 import stickerRouter from './routes/stickerRouter';
+
+const stickersDir = './dist/public/stickers';
+
+if (!fs.existsSync(stickersDir)){
+    fs.mkdirSync(stickersDir, { recursive: true });
+    console.log(`Directory ${stickersDir} created !`);
+}
 
 const app = express();
 
