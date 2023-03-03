@@ -7,6 +7,7 @@ on:
 
 env:
   IMAGE_NAME: ctrlouis/html2stickers
+  NODE_VERSION: 18
 
 jobs:
 
@@ -16,6 +17,19 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
+
+      - name: Use Node.js ${{ env.NODE_VERSION }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Install packages
+        run: npm install
+        working-directory: src
+
+      - name: Build nuxt
+        run: npm run build
+        working-directory: src
 
       - name: Setup Docker buildx
         uses: docker/setup-buildx-action@v2

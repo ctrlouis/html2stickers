@@ -14,10 +14,12 @@ list:
 	@printf "$(bold)build_docker_image_alpine$(grey) - Build docker image with alpine\n$(normal)"
 
 npm_install:
-	docker run -it --rm -v ${PWD}/app:/app -w /app node:$(node_version) npm install
+	docker run -it --rm -v ${PWD}/src:/src -w /src node:$(node_version) npm install
 
 npm_update:
-	docker run -it --rm -v ${PWD}/app:/app -w /app node:$(node_version) npm update -D
+	docker run -it --rm -v ${PWD}/src:/src -w /src node:$(node_version) npm update -D
+	docker run -it --rm -v ${PWD}/src:/src -w /src node:$(node_version) npm remove puppeteer
+	docker run -it --rm -v ${PWD}/src:/src -w /src node:$(node_version) npm install puppeteer
 
-build_docker_image:
-	docker buildx build -f ./docker/Dockerfile -t ${docker_image_name} .
+build_docker_image: npm_install
+	docker buildx build -f ./docker/Dockerfile -t ${docker_image_name}:latest .
