@@ -15,6 +15,8 @@ list:
 
 npm_install:
 	docker run -it --rm -v ${PWD}/src:/src -w /src node:$(node_version) npm install
+	docker run -it --rm -v ${PWD}/src:/src -w /src node:$(node_version) npm remove puppeteer
+	docker run -it --rm -v ${PWD}/src:/src -w /src node:$(node_version) npm install puppeteer
 
 npm_update:
 	docker run -it --rm -v ${PWD}/src:/src -w /src node:$(node_version) npm update -D
@@ -22,4 +24,4 @@ npm_update:
 	docker run -it --rm -v ${PWD}/src:/src -w /src node:$(node_version) npm install puppeteer
 
 build_docker_image: npm_install
-	docker buildx build -f ./docker/Dockerfile -t ${docker_image_name}:latest .
+	docker buildx build -f ./docker/Dockerfile -t ${docker_image_name}:latest --no-cache .

@@ -24,3 +24,18 @@ GET on `http://localhost:3000/api/stickers/<template_name>`
 ## Generate stickers
 
 POST on `http://localhost:3000/api/stickers/<template_name>/generate`
+
+# Development
+
+## Build docker image
+You can use dedicated make script :
+```
+make docker_build_image
+```
+Or
+```
+cd ./src
+npm install
+npm remove puppeteer
+npm install puppeteer # puppeteer should be reinstall to use config and setup cache
+```

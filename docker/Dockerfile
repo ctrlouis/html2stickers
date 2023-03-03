@@ -1,7 +1,6 @@
 FROM node:18
 
 ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD true
-ENV PUPPETEER_CACHE_DIR "/html2stickers"
 
 RUN apt-get update \
     && apt-get install -y wget gnupg \
@@ -14,14 +13,14 @@ RUN apt-get update \
     && groupadd -r pptruser && useradd -rm -g pptruser -G audio,video pptruser
 
 
-COPY ./src/ /html2stickers/
+COPY ./src/ /home/node/app
 
-WORKDIR /html2stickers
+WORKDIR /home/node/app
 
-RUN npm run-script build
+RUN npm run build
 
-RUN mkdir -p /html2stickers/dist/public/stickers
-RUN mkdir -p /html2stickers/dist/views
+RUN mkdir -p /home/node/app/dist/public/stickers
+RUN mkdir -p /home/node/app/dist/views
 
 EXPOSE 80
 EXPOSE 443
