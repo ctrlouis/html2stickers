@@ -1,4 +1,4 @@
-FROM node:18-alpine
+FROM node:18
 
 ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD true
 
@@ -12,14 +12,15 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/* \
     && groupadd -r pptruser && useradd -rm -g pptruser -G audio,video pptruser
 
-WORKDIR /html2stickers
 
-COPY ./src/ /html2stickers/
-RUN npm install
-RUN npm run-script build
+COPY ./src/ /home/node/app
 
-RUN mkdir -p /html2stickers/dist/public/stickers
-RUN mkdir -p /html2stickers/dist/views
+WORKDIR /home/node/app
+
+RUN npm run build
+
+RUN mkdir -p /home/node/app/dist/public/stickers
+RUN mkdir -p /home/node/app/dist/views
 
 EXPOSE 80
 EXPOSE 443
