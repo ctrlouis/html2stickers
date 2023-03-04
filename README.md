@@ -72,3 +72,8 @@ npm install
 npm remove puppeteer
 npm install puppeteer # puppeteer should be reinstall to use config and setup cache
 ```
+
+# Links
+
+- [Github repo](https://github.com/ctrlouis/html2stickers)
+- [Docker image](https://hub.docker.com/r/ctrlouis/html2stickers)
