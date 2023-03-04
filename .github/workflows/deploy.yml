@@ -24,10 +24,13 @@ jobs:
           node-version: ${{ env.NODE_VERSION }}
 
       - name: Install packages
-        run: npm install
+        run: |
+          npm remove puppeteer
+          npm install puppeteer
+          npm install
         working-directory: src
 
-      - name: Build nuxt
+      - name: Build app
         run: npm run build
         working-directory: src
 
